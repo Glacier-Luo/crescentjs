@@ -27,8 +27,8 @@ const client = await SigningStargateClient.connectWithSigner(
     prefix: 'cre'
   }
 )
-
-const msg = {
+// Limit Order
+const limitOrder = {
   typeUrl: '/crescent.liquidity.v1beta1.MsgLimitOrder',
   value: {
     orderer: address,
@@ -48,6 +48,27 @@ const msg = {
   }
 }
 
+// Market Order
+const marketOrder = {
+  typeUrl: '/crescent.liquidity.v1beta1.MsgMarketOrder',
+  value: {
+    orderer: address,
+    // pair_id https://apigw.crescent.network/pair/info
+    pairId: '1',
+    // orderDirection = pairBaseDenom === offerDenom ? 2 : 1
+    direction: 2,
+    offerCoin: {
+      denom: 'ubcre',
+      // 1bcre = 1000000cre
+      amount: '100000'
+    },
+    demandCoinDenom: 'ucre',
+    amount: '10000000',
+    orderLifespan: '0s'
+  }
+}
+
+
 const fee = {
     amount: [],
     gas: "200000",
@@ -55,7 +76,7 @@ const fee = {
 
 let result = client.signAndBroadcast(
     address,
-    [msg],
+    [limitOrder, marketOrder],
     fee,
     'GlacierLuo'
 )

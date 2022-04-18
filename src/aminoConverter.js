@@ -116,6 +116,47 @@ export const crescentTypes = {
             };
         },
     },
+    '/crescent.liquidity.v1beta1.MsgMarketOrder': {
+        aminoType: 'liquidity/MsgMarketOrder',
+        toAmino: ({
+            orderer,
+            pairId,
+            direction,
+            offerCoin,
+            demandCoinDenom,
+            amount,
+            orderLifespan,
+        }) => {
+            return {
+                orderer: orderer,
+                pair_id: String(pairId),
+                direction: Number(direction),
+                offer_coin: offerCoin,
+                demand_coin_denom: demandCoinDenom,
+                amount: amount,
+                order_lifespan: '0',
+            };
+        },
+        fromAmino: ({
+            orderer,
+            pair_id,
+            direction,
+            offer_coin,
+            demand_coin_denom,
+            amount,
+            order_lifespan,
+        }) => {
+            return {
+                orderer: orderer,
+                pairId: parseInt(pair_id),
+                direction: direction,
+                offerCoin: offer_coin,
+                demandCoinDenom: demand_coin_denom,
+                amount: amount,
+                orderLifespan: { seconds: 0, nanos: 0 },
+            };
+        },
+    },
     '/crescent.farming.v1beta1.MsgStake': {
         aminoType: 'farming/MsgStake',
         toAmino: ({ farmer, stakingCoins }) => {
