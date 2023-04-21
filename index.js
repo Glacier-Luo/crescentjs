@@ -33,7 +33,7 @@ const limitOrder = {
   value: {
     orderer: address,
     // pair_id https://apigw.crescent.network/pair/info
-    pairId: '1',
+    pairId: 1,
     // orderDirection = pairBaseDenom === offerDenom ? 2 : 1
     direction: 2,
     offerCoin: {
@@ -42,7 +42,7 @@ const limitOrder = {
       amount: '100000'
     },
     demandCoinDenom: 'ucre',
-    price: '1',
+    price: `${1.2 * 10 ** 18}`,
     amount: '100000',
     orderLifespan: '0s'
   }
@@ -54,7 +54,7 @@ const marketOrder = {
   value: {
     orderer: address,
     // pair_id https://apigw.crescent.network/pair/info
-    pairId: '1',
+    pairId: 1,
     // orderDirection = pairBaseDenom === offerDenom ? 2 : 1
     direction: 2,
     offerCoin: {
@@ -70,7 +70,12 @@ const marketOrder = {
 
 
 const fee = {
-    amount: [],
+  amount: [
+    {
+      "denom": "ucre",
+      "amount": "2000"
+    }
+  ],
     gas: "200000",
 }
 
